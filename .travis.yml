@@ -1,0 +1,32 @@
+dist: trusty
+language: generic
+install: true
+
+addons:
+  apt:
+    packages:
+    - lua5.1
+jdk: openjdk8
+
+script: "[[ -n $TRAVIS_TAG ]] && ./build.sh web android || ./build.sh" # web and android only for tags    
+deploy:
+  provider: releases
+  skip_cleanup: true
+  api_key:
+    # travis encrypt <token> 
+    secure: E3CERIFtN4vCs8pyouv5tOFtJHfL7zBhWMGyvaMhB3g9UqL8YsSZQ2fPRnhQfpk5oYa4xdij/9SiHQS4y8tv9wUp22QNNgy32FKOpNqJ5PgfrdWXIlfSs/9qEdO4rJD3YGqlgnqZfg9BNsRSqY5orWendHHDjaPCraf2/fVYV2h/yGm9K32vsSxbWw/QrG6CHlqztJ3Bw2jK/9smZ1GciIcAq6ZVGP2gV3DyubI+f9Zi6VKKpaj5FYxGtXcIeijcDYWwd9t14mALSceAJy4bqJundrjXMoZbJWz736pnD9HSwmeXdpQUz37eYc+3iKf9O8/TI1OVzR0+PL4SaYbuD8bXGULi0069KbDyDh3KcrY/7zzax/1YtxXYmh4cQtIlVqUX8u/MJhvIA3CH6DArOVrAHoXmZqM+9J6wIQwU5QRszVHnQWiJL7ts7wb05QvTMgg60b8Rmq7Xi8KwXFo15W28krkPodLt5QocSAsUOQmBW6ZiznH9BOpLmOYxVyVa8F3xVEYkTocOCV6Er9XEcI8YGgaWX6lCfhJe3AvYlYUJmKCw1Vfm02FKko+Xd2jnrzfUwpLlVKyE6iYumnjrZmZtg68QVqMmWuXuBkj4I4Vp74K67DKHb1EYQd3OSMe7q3hPAspjTNpkYan39MN2Tis6CBFKLZTO3aNTSwPoXGE=
+  file:
+  - target/hello_world.love
+  - target/hello_world-win.zip
+  - target/hello_world-web.zip
+  - target/hello_world-debug.apk
+  - target/hello_world-release-unsigned.apk
+  on:
+    tags: true
+    all_branches: true
+after_success:
+- "[[ -n $TRAVIS_TAG ]] && ./build.sh deploy $TRAVIS_REPO_SLUG"
+env:
+  global:
+   # travis encrypt GH_TOKEN=<token>
+  - secure: kY2Xc348WcdQfBwwH6lrQUHRKDIzUcUaJ20W/pM0WkynV7ieJ8Enk+yxCdPpWz6EsXhPEQLdwV0HBA9PNmpOcrhGPcfv1b8siNATmiJe4baG4HYczobl9dup2q9DycjeWmuo3bAZiYzZfxbm1+kKaAwogu5+7of0plswXOIjOhXZ253WLFUwyBk5Cy5dB+8rvTgPNIMaZ6Xtcyilue8P7FlaQ4taCsR7c49vKzz7BbbnVLNwIz8GIMdetK776bUgoHUzUaciNbVLzV4iRoR31+u4BiVLNHyQtkXppWiftOPI0/h/e1TrWwfs+DLha02ziT/i3xjfS4eJzksfGIKGQaDK3Am2PmDgM+DcagyKy6Neu8bryTUOU55k0MsnatLYLZH8BDncxfu3UNNy07byOXFX+l8CW2eQ0l9NdEo3UKZEjukRnO4hUTuopXh3wxkRxpFDQ3j3a2pVlBd9/UYRXZZQYPScXPNkps0Zrws0x1WITt0JvKcBnT7GvJeVXMZBWMGXekdGbK92mUOZU/nKM3VzNvXmbVHjWJMQYvepRa9ZbN0NAXMoH/tzaYLYKbWGyWmFlU6nWi+ttrNZ2kM1k9nl4Z2iMIrYnM/5NFisTcgedtkCVfayMHKSlxbiNdefrey+81x3+aUodh9x5/s02EGshq50gIodL2B1rlq8RM4=
