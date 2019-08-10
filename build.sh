@@ -8,7 +8,7 @@ LV="11.2"
 LZ="https://bitbucket.org/rude/love/downloads/love-${LV}-win32.zip"
 NV="v10.15.3"
 
-NDK_VER="r14b"
+NDK_VER="r16b"
 #NDK_VER="r17c"
 
 ### clean
