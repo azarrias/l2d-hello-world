@@ -4,7 +4,7 @@ set -x
 
 P="hello_world"
 
-LV="0.10.2"
+LV="11.2"
 LZ="https://bitbucket.org/rude/love/downloads/love-${LV}-win32.zip"
 NV="v10.15.3"
 
@@ -78,7 +78,7 @@ rm -r "$tmp"
 if [ "$2" == "android" ]; then
 cd target
 #git clone --single-branch --branch 0.10.x https://bitbucket.org/MartinFelis/love-android-sdl2
-git clone --single-branch --branch 0.10.x https://bitbucket.org/azarrias/love-android-sdl2
+git clone --single-branch --branch 0.11.x https://bitbucket.org/MartinFelis/love-android-sdl2
 #git clone https://bitbucket.org/MartinFelis/love-android-sdl2
 mkdir -p love-android-sdl2/app/src/main/assets
 cp "${P}".love love-android-sdl2/app/src/main/assets/game.love
